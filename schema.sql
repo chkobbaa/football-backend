@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
-  email TEXT UNIQUE NOT NULL,
+  number TEXT UNIQUE NOT NULL,
   password_hash TEXT NOT NULL
 );
 
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS matches (
   id SERIAL PRIMARY KEY,
   location TEXT NOT NULL,
   date TIMESTAMP NOT NULL,
-  price NUMERIC(10, 2) NOT NULL,
+  price_pp NUMERIC(10, 2) NOT NULL,
   created_by INTEGER REFERENCES users(id)
 );
 
