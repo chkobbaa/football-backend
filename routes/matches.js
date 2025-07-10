@@ -9,20 +9,29 @@ router.get("/", authenticateToken, async (req, res) => {
 });
 
 router.post("/", authenticateToken, async (req, res) => {
-  const { location, date, price } = req.body;
-  await pool.query("INSERT INTO matches (location, date, price, created_by) VALUES ($1, $2, $3, $4)", [location, date, price, req.user.id]);
+  const { location, date, price_pp } = req.body;
+  await pool.query(
+    "INSERT INTO matches (location, date, price_pp, created_by) VALUES ($1, $2, $3, $4)",
+    [location, date, price_pp, req.user.id]
+  );
   res.sendStatus(201);
 });
 
 router.post("/:id/join", authenticateToken, async (req, res) => {
   const matchId = req.params.id;
-  await pool.query("INSERT INTO participants (match_id, user_id, has_paid) VALUES ($1, $2, false)", [matchId, req.user.id]);
+  await pool.query(
+    "INSERT INTO participants (match_id, user_id, has_paid) VALUES ($1, $2, false)",
+    [matchId, req.user.id]
+  );
   res.sendStatus(200);
 });
 
 router.post("/:id/pay", authenticateToken, async (req, res) => {
   const matchId = req.params.id;
-  await pool.query("UPDATE participants SET has_paid = true WHERE match_id = $1 AND user_id = $2", [matchId, req.user.id]);
+  await pool.query(
+    "UPDATE participants SET has_paid = true WHERE match_id = $1 AND user_id = $2",
+    [matchId, req.user.id]
+  );
   res.sendStatus(200);
 });
 
