@@ -9,4 +9,13 @@ pool.on('error', (err) => {
   process.exit(-1);
 });
 
+pool.connect()
+  .then(client => {
+    console.log("✅ Successfully connected to the database");
+    client.release();
+  })
+  .catch(err => {
+    console.error("❌ Database connection error:", err.stack);
+  });
+
 module.exports = pool;
